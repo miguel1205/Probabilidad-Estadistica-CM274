@@ -35,7 +35,7 @@ options(formatR.arrow=TRUE,width=90)
 \maketitle
 
 
-{\normalsize  \textbf{Temas:}  Espacio Muestral, Propiedades de la \mbox{Funci\'on} Probabilidad, Probabilidad Condicional, Teorema  de Bayes, Teorema de la Probabilidad Total, Variables Aleatorias : Discretas y Continuas.}
+{\normalsize  \textbf{Temas:}  Espacio Muestral, Propiedades de la \mbox{Funci\'on} Probabilidad, Teoria del Conteo}
 
 \setlength{\unitlength}{1in}
 
