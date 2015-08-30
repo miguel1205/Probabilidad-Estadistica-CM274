@@ -27,7 +27,6 @@ opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
 options(formatR.arrow=TRUE,width=90)
 @
 
-
 \title{Introducci\'on a la Estad\'istica y Probabilidades CM-274}
 \date{}
 \maketitle
