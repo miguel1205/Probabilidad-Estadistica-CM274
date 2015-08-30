@@ -24,7 +24,7 @@ in Statistics) (2003).
 - Esperanza Desigualdades.
 - Convergencia de Variables Aleatorias.
 
-2. Estadística
+2.Estadística
 - Muestreos.
 - Estimación de Paramétros y Distribuciones de Probabilidad.
 - Prueba de Hipótesis y Evaluación de Ajustes (Goodness of Fit).
@@ -34,7 +34,7 @@ in Statistics) (2003).
 - Analisis de Datos Categóricos.
 - Regresión Lineal.
 
-3. Otros Tópicos [Opcional]
+3.Otros Tópicos [Opcional]
 - El Bootstrap.
 - Inferencia Bayesiana.
 - Teoria de Grafos y Probabilidad.
