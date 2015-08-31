@@ -1,0 +1,205 @@
+\documentclass[a4paper,10pt]{report}
+%\usepackage[sc]{mathpazo}
+%\usepackage[light,firsttwo,outline,bottomafter]{draftcopy}
+%\usepackage{srcltx}
+\usepackage{anysize} % Soporte para el comando \marginsize
+\marginsize{1.2cm}{1.2cm}{1cm}{1cm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[latin1]{inputenc}
+\usepackage[english,spanish]{babel}
+\usepackage{amsmath}
+\usepackage{multicol} 
+\columnsep=7mm
+\usepackage{latexsym}
+\usepackage{mathrsfs}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{enumitem}
+%\usepackage{hyperref}
+
+\usepackage{times}
+
+
+
+%\usepackage{xcolor}
+%\usepackage{pgfplots}
+%\usepackage{tikz}
+
+% Define bar chart colors
+%
+%\definecolor{bblue}{HTML}{4F81BD}
+%\definecolor{rred}{HTML}{C0504D}
+%\definecolor{ggreen}{HTML}{9BBB59}
+%\definecolor{ppurple}{HTML}{9F4C7C}
+
+
+
+
+
+\setlength{\paperwidth}{216mm} \setlength{\paperheight}{230mm}
+\setlength{\textwidth}{39pc} \setlength{\textheight}{57.5pc}
+\setlength{\topmargin}{-1.5cm} \setlength{\oddsidemargin}{-0.5cm}
+\setlength{\evensidemargin}{0.9cm}
+%\setlength{\footskip}{-0.3cm}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\normal}{\triangleleft \,}
+\newcommand{\tx}{\textrm}
+% \linespread{1.2} \sloppy
+
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\e}{\rightarrow}
+\newcommand{\bi}{\Leftrightarrow}
+\newcommand{\com}{\mathbb{N} \bi}
+\newcommand{\fu}{f:\N \e \R}
+\newcommand{\ba}{\backslash}
+\newcommand{\Q}{\mathbb{Q}}
+
+
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calL}{\mathcal{L}}
+
+
+\newcommand{\ovl}{\overline}
+\newcommand{\ora}{\overrightarrow}
+\newcommand{\ola}{\overleftarrow}
+\newcommand{\olra}{\overleftrightarrow}
+\newcommand{\ula}{\underleftarrow}
+\newcommand{\ura}{\underrightarrow}
+
+
+\newcommand{\inner}[2]{\langle{#1},{#2}\rangle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\cabecera}[1]{\begin{figure}[h]
+ \begin{minipage}[c]{0.05\columnwidth}
+\centering\includegraphics[width=2cm]{escudo.pdf}% tb escudouni.bmp
+\end{minipage}
+\hfill{}
+\begin{minipage}[c]{0.86\columnwidth}
+\centering\flushleft {Universidad Nacional de Ingenier\'ia\\
+Facultad de Ciencias\\
+Escuela Profesional de Matem\'atica \hfill #1}
+\end{minipage}
+\end{figure}\vspace{-0.5cm}
+}
+
+
+\pagestyle{empty}
+
+\begin{document}
+%\cabecera{Ciclo 2015-I}
+\begin{center}
+{\Large {\bf Principio de Inclusi\'on-Exclusi\'on}}
+
+\end{center}
+%{\normalsize  Conceptos de Probabilidad, Probabilidad condicional, Teorema de la Probabilidad Total, Teorema de Bayes}
+\setlength{\unitlength}{1in}
+
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+ 
+
+\renewcommand{\arraystretch}{2}
+
+\vskip.15in
+%\noindent\textbf{Instructor:} Instructor name,  Office building and number, Phone: 555-5555
+%\vskip.25in
+%\noindent {\Large \textbf{Soluci\'on a los Ejercicios }}
+%\vskip.25in
+
+
+(\textbf{Principio de inclusi\'on-exclusi\'on}):
+El principio de inclusi\'on-exclusi\'on, es una generalizaci\'on de la propiedad 
+
+\[
+P(A\cup B) = P(A) + P(B) -P(A \cap B)
+\]
+
+para dos eventos $A, B\subset \Omega$. Esto es equivalente a un resultado de la teoria de conjuntos
+
+\[
+|A \cup B|=|A| + |B| -|A \cap B|
+\]
+
+donde la notaci\'on $|A|$ significa el n\'umero de elementos contenidos en el conjunto $A$.
+
+
+
+\vspace{0.3cm}
+
+
+$\blacktriangleright$  Sean $A_1, A_2, \dots, A_n$ eventos donde  $n \geq 2$  se cumple que
+
+\begin{align*}
+\PR\Bigl(\bigcup _{i=1}^nA_i\Bigr) = \sum_{i}^{n}\PR (A_i) - \sum_{i < j}\PR(A_i \cap A_j)+   \sum_{i < j < k} \PR(A_i \cap A_j \cap A_k) - 
+\\ \sum_{i < j < k < l}\PR(A_i \cap A_j \cap A_k \cap A_l)+   \dots + (-1)^{n + 1}\PR(A_1 \cap A_2 \cap \dots \cap A_n).
+\end{align*}
+
+\vspace{0.3cm}
+
+donde $A_1, A_2, \dots, A_n\subset \Omega$. Esto es equivalente a un resultado de la teoria de conjuntos
+
+\vspace{0.2cm}
+
+
+\begin{align*}
+\vert A_1 \cup A_2 \cup \cdots \cup A_n \vert = \sum_{i = 1}^{n}\vert A_i \vert - \sum_{i < j}^{}\vert A_i \cap A_j\vert + \sum_{i < j < k}^{}\vert A_i \cap A_j \cap A_k \vert \\
+\sum_{i < j < k < l}^{}\vert A_i \cap A_j \cap A_k \cap A_l \vert  + \dots + (-1)^{n +1}\vert A_1 \cap A_2 \cap \dots A_n \vert
+\end{align*}
+
+\vspace{0.3cm}
+
+Para la prueba, supongamos que un punto est\'a contenido exactamente en $m$ de los conjuntos $A_1, A_2, \dots A_n$, donde $m$ es un n\'umero entre $1$ y $n$. Entonces el punto es contado  $m$ veces en $\sum_{i = 1}^{n}\vert A_i \vert$, es contado $C(m,2)$ veces en $\sum_{i < j}^{}\vert A_i \cap A_j\vert$, es contado $C(m,3)$ veces en $\sum_{i < j< k}^{}\vert A_i \cap A_j \cap A_k \vert$, etc.
+
+La notaci\'on $C(m,k)$ significa el n\'umero de maneras de	 escoger un conjunto de $k$ objetos desde un conjunto de $m$ objetos, sin repetici\'on.
+
+\vspace{0.3cm}
+
+
+Despu\'es de alcanzar $\sum_{i_1 < i_2 < \cdots i_m}\vert A_{i_1} \cap A_{i_2} \cap \cdots \cap A_{i_m}\vert$, donde el punto es contado una vez (desde que $C(m ,m) = 1$), se encuentra que el punto no es contado  en absoluto, en cualquiera que implique  la intersecci\'on de m\'as de $m$ conjuntos.
+
+\vspace{0.3cm}
+
+
+ El resultado aqu\'i  es que un punto que est\'a contenido en exactamente $m$ de los conjuntos se contar\'a $S$ veces en  $\vert A_1 \cup A_2 \cup \cdots \cup A_n \vert $, como en la ecuaci\'on anterior, donde $S$ tiene la forma de 
+
+\[
+S \equiv C(m,1)-C(m,2)+C(m, 3)-C(m,4) + \dots + (-1)^{m+1}C(m,m). 
+\]
+
+\vspace{0.3cm}
+
+Para calcular $S$, recordamos el teorema binomial
+
+\vspace{0.3cm}
+
+\[
+(x + y)^m = \sum_{k = 0}^{m} C(m, k)x^k y^{m -k}, \ \ \text{donde}\ \  C(m, k ) = \binom{m}{k} = \frac{m!}{k!( m - k)!}.
+\]
+
+\vspace{0.3cm}
+
+Poniendo $x = 1$ y $y= -1$ en la ecuaci\'on anterior, tenemos $\sum_{k = 0}^{m}(-1)^kC(m, k) = 0$
+
+\vspace{0.3cm}
+
+Usando $C(m, 0) = 1$, se sigue que
+
+\[
+1- C(m,1) + C(m, 2) - C(m, 3) + \dots + (-1)^mC(m, m) = 0
+\]
+
+\vspace{0.3cm}
+
+Lo cual implica que $S = 1$. Esto implica que cada punto contenido en la uni\'on de $A_1, A_2,\dots A_n$ es \mbox{contado exactamente} una vez. As\'i queda demostrado el resultado.
+\end{document}
