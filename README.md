@@ -21,7 +21,8 @@ in Statistics) (2003).
 1.Introducción a la Teoria de la Probabilidad
 - Probabilidad.
 - Variables Aleatorias.
-- Esperanza Desigualdades.
+- Esperanza. 
+- Desigualdades.
 - Convergencia de Variables Aleatorias.
 
 2.Estadística
