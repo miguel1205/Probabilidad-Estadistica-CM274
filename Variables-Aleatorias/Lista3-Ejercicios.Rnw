@@ -1,0 +1,234 @@
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage{graphicx}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\PR}{\mathbb{P}}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+\begin{document}
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+library(ggplot2)
+library(grid)
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
+options(formatR.arrow=TRUE,width=90)
+@
+
+
+\title{Ejercicios de Probabilidades y Estad\'istica}
+
+
+\author{Curso: Introducci\'on a la Estad\'istica y Probabilidades CM-274}
+
+\date{}
+\maketitle
+
+
+{\normalsize  \textbf{Temas:}  Variables Aleatorias, pmf, Funci\'on de Distribuci\'on (CDF), Funci\'on Densidad (PDF)}
+
+\setlength{\unitlength}{1in}
+
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+\vspace{0.5cm}
+
+\textbf{Variables Aleatorias}
+
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item Sea $X$ una variable aleatoria de un espacio de probabilidad dado y sea $a \in \R $. Muestra que 
+ \begin{enumerate}
+ \item $aX$ es una variable aleatoria.
+ \item  $X - X$, es una variable aleatoria tomando el valor de $0$  y $X + X = 2X$.
+ \end{enumerate}
+ \item Sea $X$ una variable aleatoria y sea $g: \R \rightarrow \R$ continua y estrictamente creciente. Muestra que $Y = g(X)$ es una variable aleatoria.
+ \item 
+ \begin{enumerate}
+ \item Muestra que, si $X$ y $Y$ son variables aleatorias sobre un espacio de probabilidad $(\Omega, \mathcal{F}, \R)$, entonces lo son $X + Y$, $XY$ y $\min\{X,Y\} $.
+ \item Prueba que el conjunto de todas las variables aleatorias  sobre un espacio de probabilidad $(\Omega, \mathcal{F}, \R)$, \mbox{constituye} un espacio vectorial sobre los reales. Si $\Omega$ es finito, escribe una base  para ese espacio.
+ \end{enumerate}
+ \item 
+ \begin{enumerate}
+ \item Muestra que una variable aleatoria discreta, puede ser escrita como una combinaci\'on de \mbox{variables} indicadoras.
+ \item Muestra que una variable aleatoria puede ser expresado como el l\'imite de una sucesi\'on creciente de \mbox{variables} aleatorias discretas.
+ \item Muestra que el l\'imite de alguna sucesi\'on creciente convergente de variables aleatorias es una variable aleatoria.
+ \end{enumerate}
+ \end{enumerate}
+ 
+ \vspace{0.5cm}
+
+\textbf{pmf}
+
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item 
+\begin{enumerate}
+ \item Muestra que si $X$ es una variable aleatoria binomial o de Poisson, entonces $f(k) = \PR(X = k)$ tiene la propiedad $f( k - 1)f(k + 1)\leq f(k)^{2}$.
+ \item Muestra que si $f(k) = 90/(\pi k)^{4}, \  k\geq 1$, entonces $f( k - 1)f(k + 1)\geq f(k)^{2}$.
+ \item Encuentra el \texttt{pmf}, $f$ tal que $f( k - 1)f(k + 1)=  f(k)^{2}, k \geq 1$.
+ \end{enumerate}
+\item ?` Para qu\'e valores de la constante $C$  las siguientes expresiones definen una  \texttt{pmf} sobre los enteros positivos?
+\begin{enumerate}
+\item Geom\'etrica: $f(x) = C2^{-x}$.
+\item Logar\'itmica: $f(x) = C2^{-x}/x$.
+\item Inversa cuadrado: $f(x) = Cx^{-2}$.
+\item Poisson modificado: $f(x) = C2^{x}/x!$.
+\end{enumerate}
+\item Para una variable aleatoria  $X$, teniendo  cada uno de las cuatro \texttt{pmf}  definidos en el problema anterior encuentra 
+
+\begin{enumerate}
+\item $\PR (X > 1)$,
+\item El valor m\'as probable  de $X$.
+\item La probabilidad que $X$ sea par.
+\end{enumerate}
+\item Lanzamos $n$ monedas y cada una de ellas muestra cara con una probabilidad $p$, independientemente  de las otras. Cada moneda que mostr\'o cara  en el primer lanzamiento, es lanzada otra vez. ?`Cu\'al es el \texttt{pmf} del n\'umero de caras resultante desde la segunda ronda de lanzamientos.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\textbf{Funci\'on de Distribuci\'on}
+
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item Sea $X$ que  tiene una funci\'on distribuci\'on
+
+\[
+F(x) = \begin{cases}
+0 & \ \ \mbox{si}\ \ x < 0 \\
+\frac{1}{2}x& \ \ \mbox{si}\ \  0 \leq x \leq 2, \\
+1 & \ \  \mbox{si}\ \  x > 2
+\end{cases}
+\]
+y sea $Y = X^2$. Calcula los siguiente resultados
+
+\begin{enumerate}
+\item $\PR(\frac{1}{2}\leq X \leq\frac{3}{2})$
+\item $\PR(1 \leq X < 2)$
+\item $\PR(Y \leq X)$
+\item $\PR(X + Y \leq \frac{3}{4})$
+\item La funci\'on distribuci\'on de $Z = \sqrt{X}$. 
+\end{enumerate}
+\item Sea $X$ que tiene una funci\'on distribuci\'on
+
+\[
+F(x) = \begin{cases}
+0  & \ \ \mbox{si} \ \  x < -1, \\
+1 - p & \ \  \mbox{si}\ \  -1 \leq x < 0, \\
+1 - p  + \frac{1}{2}xp & \ \  \mbox{si}\ \  0 \leq x \leq 2, \\
+1 & \ \ \mbox{si}\ \  x > 2.
+\end{cases}
+\]
+Bosqueja esta funci\'on y encuentra $\PR(X = -1)$,  $\PR(X = 0)$, $\PR(X\geq 1)$.
+\item 	Los autobuses llegan en intervalos de diez minutos a partir del mediod\'ia. Un hombre llega a la parada de autob\'us  un n\'umero aleatorio $X$ minutos despu\'es del mediod\'ia, donde $X$ tiene una funci\'on  distribuci\'on
+
+
+\[
+\PR(X \leq x) = \begin{cases}
+0  & \ \ \mbox{si} \ \  x < 0	, \\
+x/60  & \ \  \mbox{si}\ \  0 \leq x \leq  60, \\
+1  & \ \  \mbox{si}\ \  x > 60,
+\end{cases}
+\]
+?` Cu\'al es la probabilidad que el espere menos de cinco minutos, para un bus?.
+
+\item Sea $X$ una variable aleatoria con funci\'on distribuci\'on $F$ y sea $a < b$. Bosqueja la funci\'on distribuci\'on de las variables aleatorias $Y$ y $Z$ dadas por
+
+\[
+Y = \begin{cases}
+a & \ \ \mbox{si}\ \ X < a\\
+X & \ \  \mbox{si}\ \  a \leq X \leq b, \\
+b &  \  \ \mbox{si}\ \ X > b
+\end{cases} \ \ \ \ 
+Z = \begin{cases}
+X & \ \ \mbox{si}\ \ \vert X \vert \leq b,\\
+0 & \ \ \mbox{si}\ \  \vert X \vert > b
+\end{cases}
+\]
+Indica como las funciones de distribuci\'on cuando $ a \rightarrow -\infty, b \rightarrow \infty$.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\textbf{Funci\'on Densidad}
+
+\begin{enumerate}
+\item Muestra que si $f$ y $g$ son funciones densidad y $0 \leq \lambda \leq 1$, entonces $\lambda f + (1 -\lambda )g$ es una funci\'on de densidad. ?` Es el producto $fg$ una funci\'on  densidad?.
+\item ?` Cu\'ales son funciones densidad?. Encuentra el valor de $c$ y la correspondiente funci\'on distribuci\'on $F$ para aquellas que lo son
+
+\begin{enumerate}
+\item 
+\[
+f(x) = \begin{cases}
+cx^{-d} &  \mbox{si }\ \  x > 1\\
+0       &   \mbox{en otros casos}
+\end{cases}
+\]
+\item $f(x) = ce^{x} ( 1 + e^x)^{-2}, x \in \R$.
+\end{enumerate}
+
+\item Encuentra la funci\'on densidad de $Y = aX$, donde $a >0$, en t\'erminos de la funci\'on densidad de $X$. Muestra que las variables aleatoria continuas $X$ y $-X$ tiene la misma funci\'on de distribuci\'on  si y s\'olo si $f_{X}(x) = f_{X}(-x)$ para todo $x \in \R$.
+\item Sea $X$ una variable aleatoria positiva con una funci\'on densidad $f$ y una funci\'on de distribuci\'on $F$. Definimos la \texttt{funci\'on de Hazard} como $H(x) = -\log[1-F(x)]$ y la \texttt{raz\'on de Hazard}
+
+\[
+r(x) = \lim_{h \downarrow 0}\dfrac{1}{h}\PR(X \leq x + h | X > x), \ x\geq 0.
+\]
+Muestra 
+
+\begin{itemize}
+\item $r(x) = H^{'}(x) = f(x)/\{1 -F(x)\}$.
+\item Si $r(x)$ incrementa con $x$, entonces $H(x)/x$ incrementa con $x$.
+\item Si $H(x)/x$ incrementa con $x$ si y s\'olo si $[1 -F(x)]^{\alpha} \leq 1 -F(\alpha x)$ para todo $0 \leq \alpha \leq 1$.
+\item Si $H(x)/x$ incrementa con $x$, entonces $H(x + y) \geq H(x) + H(y)$ para todo $x, y \geq 0$.
+\end{itemize}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\textbf{Otros Problemas}
+
+\begin{enumerate}
+\item Tres jugadores $A, B$ y $C$ se turnan para tirar un dado, lo hacen en el orden $ABCABCA\dots$
+\begin{enumerate}
+\item Muestra que la probabilidad que, de los tres jugadores, $A$ es el primero en lanzar un 6, $B$ el segundo y $C$ el tercero, es $216/1000$.
+\item Prueba que la probabilidad que el primer $6$ en aparecer es lanzado por $A$, el segundo $6$ en aparecer es lanzado por $B$ y el tercer $6$ en aparecer es lanzado por $C$ es $46656/753571$.
+\end{enumerate}
+\item Una moneda es lanzada $n $ veces. Muestra que bajo ciertas condiciones, la probabilidad de que salgan \mbox{exactamente} $k$ caras es $\binom{n}{k}\dfrac{1}{2}^n$. ?` Cu\'al es la cantidad correspondiente, cuando las caras aparecen con una probabilidad $p$ sobre cada tirada?.
+\item Sea $X$ una variable aleatoria, con   funci\'on de distribuci\'on $F$ y sea $a = (a_m : -\infty < m < \infty)$ es una sucesi\'on creciente de n\'umeros reales satisfaciendo $a_{-m} \rightarrow -\infty$ y $a_m \rightarrow \infty$ cuando $m \rightarrow \infty$. Definamos $G(x) = \PR( X \leq a_m)$ cuando $a_{m -1} \leq x < a_m$, tal que $G$ es una funci\'on de distribuci\'on de una variable discreta. ?`C\'omo se comporta la funci\'on $G$ cuando la sucesi\'on $a$ es escogida de manera que $\sup _{m}\vert a_m - a_{m -1}\vert$ es peque\~no?.
+\item Un artista de feria afirma tener el  poder de la telekinesis. La multitud se lanza monedas y \'el  hace que la moneda muestre  cara. Sucede de  cinco  de seis veces. ?` Qu\'e posibilidades tendr\'ia  de hacer esto si \'el no tiene ese  poder.
+
+\item Las aerol\'ineas encuentran que cada pasajero que  reserva un asiento, no se presenta  con probabilidad $\frac{1}{10}$ \mbox{independientemente}  de los otros pasajero. As\'i la aerol\'inea $A$ siempre vende 10 boletos para sus $9$ asiento mientras la aerol\'inea $A$  siempre vende $20$ boletos entradas para su avi\'on de $18$ asientos. ?`C\'ual de las dos aerol\'ineas tiene sobreventa ?.
+\item Es requerido colocar en order $n$ libros $B_1, B_2, \dots, B_n$ sobre un estante de una librer\'ia , de manera que los lectores busquen de izquierda a derecha y gasten el menor tiempo posible en promedio. Asumiendo que cada lector el libro $B_i$ con una probabilidad $p_i$, encuentra el orden de los libros que minimice $\PR(T \geq k)$ para todo $k$, donde $T$ es el n\'umero (aleatorios) de t\'itulos examinados por cada lector antes de encontrar el libro requerido.
+\item Ocho peones se colocan aleatoriamente en un tablero de ajedrez, no m\'as de uno en un lugar. ?` Cu\'al es la probabilidad que
+\begin{enumerate}
+\item ellos est\'en en l\'inea recta (contar las diagonales).
+\item No hay dos en la misma columna o fila.
+\end{enumerate}
+\item 
+\begin{enumerate}
+\item Muestra que la suma de las  variables binomiales $\text{bin}(m,p)$ y $\text{bin}(n,p)$ respectivamente  es $\text{bin}(m + n,p)$.
+\item Sean $X$ y $Y$ variables aleatorias independientes de Poisson con sus respectivos par\'ametros $\lambda$ y $\mu$. Muestra que $X + Y$ es de Poisson, con par\'ametro $\lambda + \mu$.
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
