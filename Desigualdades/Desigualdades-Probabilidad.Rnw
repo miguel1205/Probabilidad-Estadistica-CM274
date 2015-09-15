@@ -1,0 +1,158 @@
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+\begin{document}
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+library(ggplot2)
+library(grid)
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
+options(formatR.arrow=TRUE,width=90)
+@
+
+
+\title{Desigualdades en Probabilidad  }
+
+
+\author{Curso: Introducci\'on a la Estad\'istica y Probabilidades CM-274}
+\date{}
+\maketitle
+
+\vspace{0.3cm}
+
+
+\setlength{\unitlength}{1in}
+
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+
+\vspace{0.5cm}
+
+Las desigualdades en Probabilidad, es un cap\'itulo de la Teor\'ia de las Probabilidades muy importante lleno de aplicaciones.  Por ejemplo
+la \textit{desigualdad de Hoeffding} puede aplicarse al caso especial de variables de Bernouilli id\'enticamente distribuidas, y esta es la manera en que la desigualdad se aplica frecuentemente en combinatoria y en inform\'atica, la desigualdad de Chebyshev, ofrece una cota inferior a la probabilidad de que el valor de una variable aleatoria est\'e a cierta distancia de sus esperanza, bajo ciertas condiciones, etc.
+
+\vspace{0.2cm}
+
+En esta secci\'on presentamos algunas de las m\'as importantes desigualdades de la Teor\'ia de las \mbox{Probabilidades} y ciertas aplicaciones que conllevan.
+
+\vspace{0.3cm}
+
+\textbf{La desigualdad  Gaussiana} Sea $X \sim N(0,1)$ entonces
+\[
+\mathbb{P}(\vert X \vert > \epsilon) \leq \frac{2e^{-\epsilon^2/2}}{\epsilon}
+\]
+
+Si $X_1, \dots, X_n \sim N(0,1)$ entonces
+
+\[
+\mathbb{P}(\vert \overline{X_n}\vert > \epsilon) \leq \frac{2}{\sqrt{n}\epsilon}e^{-n\epsilon^2/2}
+\]
+
+
+\vspace{0.3cm}
+
+\textbf{Desigualdad de Markov} Sea $X$ es una variable no negativa y supongamos que  $\mathbb{E}(X)$ existe. 
+
+\[
+\mathbb{P}(X > t)\leq \frac{\mathbb{E}(X)}{t}.
+\]
+Para alg\'un $t > 0$.
+
+\vspace{0.3cm}
+
+\textbf{Desigualdad de Chebyshev} Sea $\mu = \mathbb{E}(X)$ y $\sigma^2 = Var(X)$. Entonces
+\[
+\mathbb{P}(\vert X- \mu \vert \geq t) \leq \frac{\sigma^2}{t^2}\qquad y \qquad \mathbb{P}(\vert Z \vert \geq k) \leq \frac{1}{k^2}.
+\]
+donde $Z = (X - \mu)/\sigma$. En particular $\mathbb{P}(\vert Z \vert > 2) \leq 1/4$ \qquad y \qquad  $\mathbb{P}(\vert Z \vert > 3) \leq 1/9$.
+
+\vspace{0.3cm}
+
+\textbf{Desigualdad de Hoeffding}
+
+\vspace{0.5cm}
+
+\textbf{Propiedad} Supongamos que $\mathbb{E}(X) = 0$ y que $a \leq x \leq b$. Entonces
+
+\[
+\mathbb{E}(e^{tX}) \leq e^{t^2(b -a)^2/8}.
+\]
+
+\vspace{0.3cm}
+
+\textbf{M\'etodo de Chernoff} Sea $X$ una variable aleatoria. Entonces
+
+\[
+\mathbb{P}(X > \epsilon) \leq \inf_{t \geq 0}e^{-t\epsilon}\mathbb{E}(e^{tX}).
+\]
+
+\vspace{0.3cm}
+
+Sean $Y_1, Y_2, \dots, Y_n$ observaciones indepedientes, tal que $\mathbb{E}(Y_i)=0 $ y $a_i \leq Y_i \leq b_i$. Sea $\epsilon > 0$. Entonces, para alg\'un $ t > 0$
+
+\[
+\mathbb{P}(\vert \overline{Y_n} - \mu \vert \geq \epsilon) \leq 2e^{-2n\epsilon^2/(b -a)^2}.
+\]
+
+
+\vspace{0,3cm}
+
+
+La desigualdad de Hoeffding proporciona una cota superior a la probabilidad de que la suma de variables aleatorias se desv\'ie una cierta cantidad de su valor esperado.
+
+\vspace{0.3cm}
+\textbf{Teorema de McDiarmid} Sea $X_1, X_2, \dots X_n$ variables aleatorias independientes. Suponganse que
+\[
+\sup_{x_1,\dots, x_n, x^{'}_{i}}\Bigl\vert g(x_1,\dots, x_{i - 1}, x_i, x_{i + 1}, \dots, x_n ) - g(x_1,\dots, x_{i - 1}, x^{'}_i, x_{i + 1}, \dots, x_n )\Bigr\vert \leq c_i
+\]
+
+para $i = 1,\dots, n$. Entonces
+
+\[
+\mathbb{P}\Bigl(g(X_1,\dots, X_n) -\mathbb{E}(g(X_1,\dots, X_n))\geq \epsilon \Bigr) \leq \exp\Bigl\{-\frac{2\epsilon^2 }{\sum_{i = 1}^{n}c^{2}_i}    \Bigr\}.
+\]
+
+
+
+\vspace{0.3cm}
+
+\textbf{Desigualdad de Cauchy -Schwartz} Si $X$ y $Y$ tienen varianza finita, entonces
+
+\[
+\mathbb{E}\vert XY\vert \leq \sqrt{\mathbb{E}(X^2)\mathbb{E}(Y^2)}.
+\]
+
+\vspace{0.3cm}
+
+\textbf{Desigualdad de Jensen} Si $g$ es convexa, entonces
+\[
+\mathbb{E}g(X) \geq g(\mathbb{E}X)
+\]
+
+Si $g$ es c\'oncava
+
+\[
+\mathbb{E}g(X) \leq g(\mathbb{E}X).
+\]
+
+
+\end{document}
+
