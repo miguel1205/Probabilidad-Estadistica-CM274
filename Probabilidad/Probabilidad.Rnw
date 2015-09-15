@@ -1,0 +1,673 @@
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath} 
+\usepackage{latexsym}
+\geometry{verbose,tmargin=1.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+\begin{document}
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+library(sets)
+library(ggplot2)
+library(grid)
+library(animation)
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
+options(formatR.arrow=TRUE,width=90)
+@
+
+\title{Introducci\'on a la Estad\'istica y Probabilidades CM-274}
+\date{}
+\maketitle
+
+\vspace{0.3cm}
+
+{\Large Teoria de la Probabilidad }
+
+
+
+\vspace{0.8cm}
+
+Probabilidad es el lenguaje para cuantificar la incertidumbre.
+
+\vspace{0.5cm}
+
+{\large Espacio Muestral y Eventos}
+
+\vspace{0.3cm}
+
+
+El espacio muestral $\Omega$ es el conjunto de todos los resultados del experimento. Puntos $\omega$ en $\Omega$ son llamados \textit{elementos, realizaciones o resultados muestrales}. Subconjuntos de $\Omega$ son llamados \textbf{Eventos}.
+
+\vspace{0.3cm}
+
+\begin{enumerate}
+
+\item \textbf{Ejemplo} Si lanzamos una moneda dos veces, entonces $\Omega = \{SS, SC,CS,CC\}$. El evento que la primera cara es obtenida en los lanzamientos es $A = \{ CS,CC\}$.
+
+
+\item \textbf{Ejemplo} Sea $\omega$ el resultado de la medici\'on de alguna cantidad f\'isica, por ejemplo, la Temperatura, entonces $\Omega = \mathbf{R} = ( -\infty, \infty)$. El evento en que la medida es mayor que $10$ pero menos o igual a $23$ es $A =(10, 23]$.
+
+
+\item \textbf{Ejemplo} Si lanzamos una moneda por siempre, entonces el espacio muestral es infinito
+
+\[
+\Omega = \{ \omega = (\omega_1, \omega_2, \dots, ):\omega_{i} \in \{C,S \} \}
+\]
+
+Sea $E$ el evento en que la primera cara aparece en el tercer lanzamiento. Entonces
+
+\[
+E = \{(\omega_1, \omega_2, \dots, ) : \omega_1 = S, \omega_2 = S, \omega_3 = S, \omega_{i} \in  \{ C, S\} \ \ \mbox{para} \ \  i > 3 \}.
+\]
+\end{enumerate}
+
+En particular el conjunto vacio $\emptyset$ y el espacio muestra $\Omega$ son eventos. El c\'odigo $R$, siguiente, muestra todos los posibles eventos de un experimento con $\Omega = \{ a,b, c \}$.
+<<foo1, comment = NA, prompt =TRUE, eval= TRUE>>=
+Omega  = set("a", "b", "c")
+# mostramos un conjunto con todos los posibles
+# eventos de un experimento  en un espacio muestral Omega
+2^Omega
+@
+
+\vspace{0.3cm}
+
+Dado un evento $A$, sea $A^{c} = \{ \omega \in \Omega: \omega \notin A \}$, denota el complemento de $A$. Informalmente, $A^{c}$ se lee como \textit{'no A'}. El complemento de $\Omega$ es el conjunto vacio $\emptyset$. La uni\'on de eventos $A$ y $B$ es definido como
+
+\[
+A\cup B= \{ \omega \in \Omega: \omega \in A \ \ o \  \  \omega \in B \ \ o \ \ \omega \ \  \mbox{en ambos} \}
+\]
+
+Lo que se puede pensar como \textit{'A o B'}. Si $A_1, A_2, \dots$ es una secuencia de conjuntos entonces
+
+\[
+\bigcup\limits_{i= 1}^{\infty}A_i = \{ \omega \in \omega: \omega \in A_i, \ \ \mbox{ para al menos  un i} \}.
+\]
+
+\newpage
+La intersecci\'on de $A$ y $B$ es 
+
+\[
+A\cap B= \{ \omega \in \Omega: \omega \in A \ \ y \  \  \omega \in B  \}
+\]
+
+que se lee \textit{'A y B'}. Si $A_1, A_2, \dots$ es una secuencia de conjuntos entonces
+
+\[
+\bigcap\limits_{i= 1}^{\infty}A_i = \{ \omega \in \omega: \omega \in A_i, \ \ \mbox{ para todo  i} \}.
+\]
+
+El conjunto diferencia, definido como $A -B = \{ \omega: \omega \in A, \omega \notin B  \}$. Si cada elemento de $A$ es contenido  en $B$, se escribe $A \subset B$. Si $A$ es un conjunto finito, $\vert A \vert$ denota el n\'umero de elementos en $A$.
+
+\vspace{0.3cm}
+
+
+Decimos que $A_1, A_2 \dots$ son disjuntos si $A_i \cap A_j = \emptyset$ siempre que $i \neq j$. Una partici\'on de $\omega$ es una secuencia de conjuntos disjuntos $A_1, A_2, \dots $ tal que  $\bigcup\limits_{i = 1}^{\infty} A_i =\Omega$. Dado un evento $A$, se define la \textbf{funci\'on indicador de A} dado por 
+
+\[
+ I_A(\omega) = I(\omega \in A) =
+  \begin{cases}
+   1  & \text{si  }  \omega \in A \\
+   0       & \text{si  } \omega \notin A
+  \end{cases}
+\]
+
+Una secuencia de conjuntos $A_1, A_2, \dots $ es mon\'otona creciente si $A_1 \subset A_2 \cdots$ y definimos $\lim_{n \rightarrow \infty}A_n = \bigcup\limits_{i= 1}^{\infty}A_i$. Una secuencia de conjuntos $A_1, A_2, \dots $ es mon\'otona decreciente si $A_1 \supset A_2 \cdots$ y definimos $\lim_{n \rightarrow \infty}A_n = \bigcap\limits_{i= 1}^{\infty}A_i$. Para ambos casos escribimos $A_n \rightarrow A$.
+
+\vspace{0.3cm}
+
+\textbf{Ejemplo} Sea $\Omega = \mathbf{R}$ y sea $A_i = [0, 1/i)$ para $i = 1,2, \dots $. Entonces $\bigcup\limits_{i= 1}^{\infty}A_i = [0,1)$ y $\bigcap\limits_{i= 1}^{\infty}A_i = \{ 0 \}$. Si en lugar de eso definimos $A_i = (0, 1/i)$ entonces $\bigcup\limits_{i= 1}^{\infty}A_i = (0,1)$ y $\bigcap\limits_{i= 1}^{\infty}A_i = \emptyset$.
+
+
+\vspace{0.5cm}
+
+{\large Probabilidad}
+
+\vspace{0.3cm}
+
+Asignamos un n\'umero $P(A)$ para cada evento $A$, llamada probabilidad de $A$. Para calificar como probabilidad $P$ debe satisfacer los tres axiomas:
+
+\vspace{0.3cm}
+
+\textbf{Definici\'on} Una funci\'on $P$ que asigna un n\'umero real $P(A)$ para cada evento $A$ es una \textit{funci\'on de probabilidad} o \textit{medida de probabilidad} si satisface los tres axiomas
+
+\begin{enumerate}
+\item $P(A) \geq 0$, \ \ \mbox{para cada } \ \ $A$.
+\item $P(\Omega) = 1$.
+\item Si $A_1, A_2, \dots$ son disjuntos, entonces
+
+\[
+P\Bigl(\bigcup\limits_{i= 1}^{\infty}A_i \Bigr) = \sum_{i = 1}^{\infty}P(A_i).
+\]
+\end{enumerate}
+
+
+Podemos derivar algunas propiedades de $P$ desde los anteriores axiomas. 
+
+\begin{enumerate}
+\item $P(\emptyset ) = 0$.
+\item $A \subset B \rightarrow P(A) \leq P(B)$.
+\item $0 \leq P(A) \leq 1$.
+\item $ P(A^c) = 1-P(A)$.
+\item $A \cap B = \emptyset \rightarrow  P(A \cup B) = P(A) + P(B)$.
+\end{enumerate}
+
+
+
+Podemos usar R, para demostrar una propiedad de la Probabilidad, definida en $\Omega = \{1,2,3,4\}$ usando $p_1 = 1/2, p_2 = 1/4, p_3 = p_4 = 1/8$.
+
+<<foo2, comment = NA, prompt =TRUE, eval= TRUE>>=
+# Espacio muestral
+Omega = c(1, 2, 3, 4)
+# probabilidades de  4 eventos
+p = c(1/2, 1/4, 1/8, 1/8)
+# ellos suman 1
+sum(p)
+@
+
+M\'as propiedades de la Probabilidad, pueden ser encontradas usando el paquete \textbf{sets } de R: 
+
+\texttt{http://cran.r-project.org/web/packages/sets/index.html}.
+
+\vspace{0.5cm}
+
+{\large Propiedades Importantes de la Probabilidad}
+
+\vspace{0.6cm}
+
+\textbf{Aditividad finita de la Probabilidad} Para cada secuencia $A_1, \dots A_n$ de eventos disjuntos dos a dos $(A_i \cap A_j) = \emptyset $ siempre que $i \neq j$), entonces
+
+\[
+P(A_1 \cup \dots \cup A_n) = P(A_1) + \cdots P(A_n).
+\]
+
+\textbf{Principio de Inclusi\'on -Exclusi\'on} Para dos eventos $A$ y $B$,
+
+\[
+P(A\cup B) = P(A) + P(B) -P(A \cap B)
+\]
+
+\textbf{Teorema (Continuidad de la Probabilidad)} Si $A_n \rightarrow A $ entonces 
+
+\[
+P(A_n) \rightarrow P(A)  \qquad \mbox{si} \  n \rightarrow \infty
+\]
+
+
+\vspace{0.3cm}
+
+\textbf{Ejemplo} Dos lanzamiento de moneda. Sea $H_1$ el evento que sale cara en el primer lanzamiento y sea $H_2$ el evento que ocurra cara en el segundo lanzamiento. Si todas los lanzamientos son igual de probables, entonces $P(H_1 \cup H_2) = P(H_1) + P(H_2) - P(H_1 \cap H_2) = \frac{1}{2} + \frac{1}{2} - \frac{1}{4} = 3/4$.
+
+
+\vspace{0.5cm}
+
+
+
+
+\textbf{Ejemplo} Un sistema de una computadora usa passwords que son $5$ caracteres y cada caracter es una de las $26$ letras (a-z) o $10$ enteros (0-9). El primer caracter tiene que ser una letra. Determina la proporci\'on de passwords que
+
+\begin{enumerate}
+\item inician con una consonante.
+\item terminan con un n\'umero par $(0,2,4,6,8)$.
+\item inicia con una consonante o termina con un n\'umero par.
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\begin{itemize}
+\item Suponiendo que el sistema de la  computadora usa passwords que no distinguen  las may\'usculas y las min\'usculas. Sea $A$ el evento en el cu\'al el password empieza con una consonante. Hay 21 consonantes, entonces $P(A) = 21/26$. Aqu\'i el denominador es 26, ya que todas las letras  son posibles en el passwords.
+\item Sea $B$ ele evento que los passwords terminan en un n\'umero par $(0, 2,4 ,6, 8)$. Entonces $P(B) =5 /36$. Aqu\'i el denominador es 36, ya que todas las letras del alfabeto son 26 y 10 enteros son posibles en el passwords.
+\item La  propiedad de inclusi\'on e exclusi\'on, dice que la probabilidad de A o B es
+
+\[
+P(A\cup B) = P(A) + P(B) -P(A \cap B)
+\]
+
+Para calcular $P(A \cap B)$, la probabilidad que un password, inicie con una consonante y termine en un n\'umero par, calculamos el n\'umero posible de passwords. El primer car\'acter puede ser cualquiera de las 26 letras del alfabeto, y cada uno de los siguientes caracteres puede ser cualquiera de las 26 letras, as\'i como cualquiera de los 10 n\'umeros enteros, esto es 36 posibilidades en total. As\'i que el n\'umero posible de passwords es $(26)(36^{4})$.
+
+\vspace{0.2cm}
+
+Ahora hay 21 maneras de empezar con una consonante y 5 maneras de terminar en un n\'umero par, as\'i que el n\'umero posible de passwords que empiezan en una vocal y terminan en un n\'umero impar es $(21)(36^3)(5)$.
+
+Por tanto
+
+\[
+P(A \cap B) = \frac{(21)(36^3)(5)}{(26)(36^{4}} = \Bigl( \frac{21}{26}\Bigr)\Bigl( \frac{5}{36}\Bigr).
+\]
+
+Usando el principio de inclusi\'on e inclusi\'on que empieza con una vocal o termina con un n\'umero par
+
+\[
+P(A \cup B) = \frac{21}{26} + \frac{5}{36} -  \Bigl( \frac{21}{26}\Bigr)\Bigl( \frac{5}{36}\Bigr).
+\]
+
+En R
+
+
+<<foo2Q, comment = NA, prompt =TRUE, eval= TRUE>>=
+21/26 + 5/36 - (21/26)*(5/36)
+@
+
+esto significa que hay un $80\%$ de posibilidad de seleccionar un passwords iniciando con una consonante y terminando  en un n\'umero par.
+
+
+\end{itemize}
+\vspace {0.5cm}
+
+Si $\Omega $ es finito y cada resultado del experimento, es igual de probable, entonces
+
+\[
+P(A) = \frac{\vert A \vert}{\vert \Omega \vert}
+\]
+
+que se conoce con el nombre de \textit{Distribuci\'on de probabilidad uniforme}. Para calcular probabilidades, necesitamos contar el n\'umero de puntos en un evento $A$. M\'etodos para contar puntos son llamados \textbf{M\'etodos combinatorios}. 
+
+
+\vspace{0.3cm}
+
+\textbf{Nota} Dado $n$ objetos, el n\'umero de maneras de ordenar esos objetos es $n! = n(n -1)(n -2) \cdots 3.2.1$. Por conveniencia $0! = 1$. Definimos 
+\[
+\binom{n}{k} = \frac{n!}{k!(n - k)!}
+\]
+ y sea lee \textit{'n escoge k'}, el cual es el n\'umero de elegir $k$ objetos desde $n$ de maneras distintas. Algunas propiedades b\'asicas de esta definifici\'on
+ 
+ \[
+ \binom{n}{0} = \binom{n}{1} = 1 \qquad y \qquad \binom{n}{k} = \binom{n}{n - k}.
+ \]
+ 
+ 
+ \textbf{Ejemplo} Calculemos el n\'umero de maneras de escoger $5$ numeros de $40$ y la probabilidad de que eso ocurra.
+ 
+ 
+ <<foo3, comment = NA, prompt =TRUE, eval= TRUE>>=
+prod(40:36)/prod(5:1)
+1/choose(40,5)
+@
+ 
+ \vspace{0.5cm}
+ 
+ 
+ \textbf{Ejemplo} Si los passwords pueden consistir de $6$ letras, encuentra la probabilidad que aleatoriamente un \mbox{password}, pueda ser elegido, que no tenga letras repetidas. 
+ 
+ \vspace{0.3cm}
+ 
+ En este caso el n\'umero posible de passwords es $26^6$ y el n\'umero casos favorables es $\binom{26}{6}$ y la \mbox{probabilidad} de escoger palabras no repetidas es $\frac{\binom{26}{6}}{26^6}$ y esto c\'alculo puede hacerse usando R
+ 
+ \vspace{0.3cm}
+ 
+  
+ <<foo4, comment = NA, prompt =TRUE, eval= TRUE>>=
+prod(26:21)/26^6
+@
+ 
+ 
+\vspace{0.5cm}
+
+\textbf{Ejemplo} Resolvamos los siguiente 
+\begin{enumerate}
+\item En una fiesta de cinco estudiantes, calcular la probabilidad, que al menos dos tengan el mismo (dia/mes) de cumplea\~nos, asumiendo que el a\~no tiene $365$ dias.
+\item La probabilidad que dos estudiantes en una clase tengan el mismo cumplea\~nos es al menos el $75\%$. ?` Cu\'al es el m\'inimo tama\~no de la clase?. 
+\end{enumerate}
+
+ \vspace{0.3cm}
+ 
+ 
+ En efecto 
+ 
+ \begin{align*}
+ \mbox{P (todos tiene diferentes cumplea\~nos)} = \frac{\binom{36}{5}}{365^{5}}, \\
+ \mbox{P(Al menos dos tiene el mismo cumplea\~nos)}= 1 - \frac{\binom{36}{5}}{365^{5}}.
+ \end{align*}
+ 
+ En R.  a)
+ 
+ <<foo5, comment = NA, prompt =TRUE, eval= TRUE>>=
+k <- 5
+prod(365:(365-k+1))/365^k    # todos diferentes
+1 -prod(365:(365-k+1))/365^k  # al menos dos cumplen el mismo dia
+@
+ 
+b) $\mbox{P(al menos 2 en el mismo k )} = 1 -\frac{\binom{365}{k}}{365^{k}}$. Escogemos un $k$ tal que $1 -\frac{\binom{365}{k}}{365^{k}} \geq 0.75$. En efecto $k$ se encuentra entre $30$ y $40$. Podemos inferir que $k$ est\'a muy cerca de $30$. 
+
+<<foo6, comment = NA, prompt =TRUE, eval= TRUE>>=
+k<-30 
+1-prod(365:(365-k+1))/365^k  # al menos dos cumplen el mismo dia
+k<-31
+1-prod(365:(365-k+1))/365^k  # al menos dos cumplen el mismo dia
+k<-32
+1-prod(365:(365-k+1))/365^k  # al menos dos cumplen el mismo dia
+@
+
+\vspace{0.3cm}
+
+El m\'inimo $k$ es $32$. Es necesario una clase de  $32$ o  m\'as para estar seguro que el $75\%$ seguro, de que dos estudiantes tienen  el mismo dia de cumplea\~nos.
+ 
+ \vspace{0.5cm}
+ 
+ 
+ {\large Eventos independientes}
+
+\vspace{0.6cm}
+
+\textbf{Definici\'on} Dos eventos son independientes $A$ y $B$ son independientes si
+
+\[
+P(A\cap B) = P(A)P(B)
+\]
+
+Un conjunto de eventos $\{ A_i: i \in I \}$ son independientes si
+
+\[
+P\Bigl(  \bigcap\limits_{i \in J}A_i \Bigr)  = \prod_{i \in J}P(A_i)  
+\]
+para cada subconjunto $J$ de $I$.
+
+\vspace{0.3cm}
+
+La independencia puede surgir de dos maneras distintas. Algunas veces, asumimos que los eventos son independientes. Por ejemplo al lanzar una moneda dos veces, asumimos que los lanzamientos son indepedientes, lo que se 'traduce', en que las monedas 'no tienen memoria del primer lanzamiento'. En otro caso, derivamos la independencia verificando $P(A\cap B) = P(A)P(B)$. Por ejemplo, en el lanzamiento de un dado, sea $A = \{ 2, 4, 6 \}$ y sea $B = \{1, 2, 3, 4\}$, entonces $A \cap B = \{2, 4\},  P(A\cap B) = 2/6 = P(A)P(B) = (1/2). (2/3)$ y as\'i $A$ y $B$ son independientes. 
+
+
+\vspace{0.2cm}
+
+\textbf{Observaci\'on} Supongamos que $A$ y $B$ son eventos disjuntos, cada uno con probabilidad positiva, pueden ser ellos independientes?. (Ejercicio).
+
+
+\vspace{0.5cm}
+
+\textbf{Ejemplo} Lanzamos una moneda $10$ veces. Sea el evento $A = \mbox{' al menos una cara'}$. Sea $T_j$ el evento  que sellos ocurran en el  \mbox{j-\'esimo } lanzamiento. Entonces
+
+\begin{align*}
+P(A) =& 1-P(A^C)\\
+     =& 1 - P(\mbox{todos los sellos})\\
+     =& 1 - P(T_1T_2 \cdots T_{10})\\
+     =&  1- P(T_1)P(T_2)\cdots P(T_{10})  \  \mbox {usando independencia}\\
+     =& 1 - (\frac{1}{2}^{10}) \approx .999.
+\end{align*}
+
+En R
+
+<<foo7, comment = NA, prompt =TRUE, eval= TRUE>>=
+round (1 -(1/2)^{10}, digits = 5)
+@
+
+\textbf{Ejemplo} Sean dos personas que se turnan para encestar una pelota de baloncesto. La persona $1$ tiene \'exito con probabilidad $1/3$, la  persona2 tiene \'exito con probabilidad $1/4$. ?` Cu\'al es la probabilidad de que la persona $1$ tenga  \'exito antes de la  persona $2$?. Sea $E$  el evento de inter\'es. Sea $A_j$ el evento en  que el primer \'exito es de la  persona $1$ y que se produce en el n\'umero $j$. Los conjuntos $A_i$ son disjuntos y forman una partici\'on para $E$, as\'i
+
+\[
+P(E) = \sum_{j = 1}^{\infty}P(A_j)
+\]
+
+Ahora $P(A_1) = 1/3$. $A_2$ ocurre si tenemos la secuencia persona 1, pierde, persona 2, pierde y la persona 1 tiene \'exito. Luego $P(A_2) = (2/3)(3/4)(1/3) = (1/2)(1/3)$. Siguiendo esa l\'ogica tenemos que $P(A_j) = (1/2)^{j -1}(1/3)$. As\'i,
+
+\[
+P(E) = \sum_{j  =1}^{\infty}\frac{1}{3}\Bigl(\frac{1}{2}\Bigr)^{j -1} = \frac{1}{3}\sum_{j = 1}^{\infty}\Bigl(\frac{1}{2}\Bigr)^{j -1} = \frac{2}{3}.
+\]
+
+
+\newpage
+
+
+{\large Probabilidad Condicional}
+
+\vspace{0.5cm}
+
+Asumiendo $P(B) > 0$, definimos la probabilidad condicional de $A$, dado que $B$ a ocurrido como sigue
+
+\vspace{0.3cm}
+
+\textbf{Definici\'on} Si $P(B) > 0$, entonces  la probabilidad condicional de $A$, dado  $B$ es
+
+\[
+P(A|B ) = \frac{P(A \cap B)}{P(B)}
+\]
+
+
+Piensa $P(A|B)$ como la fracci\'on de veces que $A$  ocurre entre aquellos en los que
+B ocurre. Para cualquier $B$ fijo  tal que  $P (B)> 0, P (\cdot| B)$ es una probabilidad (es decir, que cumple los tres axiomas de probabilidad). En particular $P(A|B) \geq 0, P(\Omega|B) = 1$ y si $A_1,A_2, \dots $ son disjuntos, entonces $P(\bigcup\limits_{i= 1}^{\infty}A_i|B)= \sum_{i = 1}^{\infty}P(A_i|B)$. Pero esto no es cierto en general que $P(A|B \cup B) = P(A|B) + P(A|C)$. Las reglas de la probabilidad se aplican a los eventos de la izquierda de la barra. En general, no es el caso que $P(A|B) = P(B|A)$.
+
+\vspace{0.2cm}
+
+La gente  confunde esto todo el tiempo. Por ejemplo, la probabilidad de que tengas puntos (manchas)  dado que tienes  sarampi\'on es 1, pero la probabilidad de que tienes  sarampi\'on, dado que  tienes puntos (manchas) no es 1. En este caso, la diferencia entre $P(A|B)$  y $P(B|A)$ es obvio, pero hay casos en los que es menos obvio. Este error se hace con bastante frecuencia en los casos legales que a veces se llama \textit{falacia del fiscal}.
+
+
+\vspace{0.5cm}
+
+\textbf{Ejemplo} Un test m\'edico para una enfermedad $D$ tiene salidas + y -
+
+\vspace{0.3cm}
+
+\begin{tabular}{l|c  r}
+   Salidas           & D & $D^{c}$  \\
+\hline
++       & .009 & 0.099   \\
+-       & .001 & 0.891   \\
+\end{tabular}
+
+\vspace{0.2cm}
+
+Desde la definici\'on de probabilidad  condicional,
+
+\[
+P(+| D) = \frac{P(+ \cap D)}{P(D)} = \frac{.009}{.009 + .001} = .9
+\]
+
+y
+
+
+\[
+P(-| D^{c}) = \frac{P(- \cap D^{c})}{P(D^{c})} = \frac{.891}{.891 + .099} \approx .9
+\]
+
+
+Al parecer, la prueba es bastante exacta. Personas enfermas producen un positivo del $90$ por ciento de la veces y las personas sanas producen una negativa sobre 90 por ciento de las veces . Supongamos que una persona se  hace  una prueba y obtiene un resultado positivo. ?` Cu\'al es la probabilidad de que esa persona  tiene la enfermedad? La mayor\'ia responde  $0,90$, sin embargo la  respuesta correcta es
+
+\[
+P(D| +) = \frac{P(+ \cap D)}{P(+)} = \frac{.009}{.009 + .099} \approx .08
+\]
+
+
+\vspace{0.3cm}
+
+\textbf{Lema} Si $A$ y $B$ son eventos independientes, entonces $P(A|B) = P(A)$. Tambi\'en para alg\'un par de eventos $A$ y $B$
+
+\[
+P(A \cap B) = P(A|B)P(B) = P(B|A)P(A)
+\]
+
+\vspace{0.2cm}
+
+\textbf{Ejemplo} Se lanza  dos cartas de una baraja, sin reemplazo. Sea $A$ el evento de que el primera carta  es el As de Tr\'eboles y sea $B$ el evento de que la segunda corta  es la Reina de Diamantes. Entonces $P(A \cap B) = P(A)P(B|A) = (1/52) \times (1/51).$
+
+<<foo8, comment = NA, prompt =TRUE, eval= TRUE>>=
+(1/51) * (1/52)
+@
+
+
+\newpage 
+
+\textbf{Ejemplo}  Una peque\~na empresa de software emplea 4 programadores. El porcentaje de c\'odigo escrito por cada programador y el porcentaje de errores en su c\'odigo se muestran en la siguiente tabla.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Programador & \% de c\'odigo escrito & \% de errores en c\'odigo \\ \hline
+1           & 15                   & 5                       \\ \hline
+2           & 20                   & 3                       \\ \hline
+3           & 25                   & 2                       \\ \hline
+4           & 40                   & 1                       \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\vspace{0.3cm}
+
+
+Supongamos que se examina el c\'odigo y se encontr\'o que esta libre de errores. Despu\'es de esta prueba , ?` cu\'al es la probabilidad de que fue escrito por el programador 1?.  En efecto de la probabilidad condicional
+
+\begin{align*}
+P(\mbox{Prog1|no errores}) = \frac{P(\mbox{Prog1} \cap \mbox{error})}{P(\mbox{no errores})}\\
+P(\mbox{Progr1} \cap \mbox{no errores}) = 0.15 *0.95 = 0.1425
+\end{align*}
+
+P(no errores)
+
+<<foo8w, comment = NA, prompt =TRUE, eval= TRUE>>=
+0.15*0.95 + 0.20 *0.97 + 0.25 * 0.98 + 0.40 * 0.99
+@
+
+$P(\mbox{Progr1} \cap \mbox{no errores}) = 0.1425/0.9775 = 0.1457428$.
+
+$P(\mbox{Progr2} \cap \mbox{no errores})$
+
+<<foo8y, comment = NA, prompt =TRUE, eval= TRUE>>=
+0.20*0.97/0.97775
+@
+
+$P(\mbox{Progr3} \cap \mbox{no errores})$
+
+<<foo8x, comment = NA, prompt =TRUE, eval= TRUE>>=
+0.25*0.98/0.97775
+@
+$P(\mbox{Progr4} \cap \mbox{no errores})$
+<<foo8z, comment = NA, prompt =TRUE, eval= TRUE>>=
+0.40*0.99/0.97775
+@
+\vspace{0.8cm}
+
+{\Large Teorema de Bayes}
+
+\vspace{0.6cm}
+
+\textbf{Ley de la Probabilidad Total} Sean $A_1, \dots, A_k$ una partici\'on de $\Omega$. Entonces, para alg\'un evento $B$,
+
+\[
+P(B) = \sum_{i = 1}^{k}P(B|A_i)P(A_i).
+\]
+
+
+\vspace{0.4cm}
+
+\textbf{Teorema de Bayes} Sean $A_1, \dots, A_k$ una partici\'on de $\Omega$ tal que $P(A_i) > 0$ para cada $i$. Si $P(B)  > 0$, entonces para cada $i = 1, \dots, k$,
+
+\[
+P(A_i|B) = \frac{P(B|A_i)P(A_i)}{\sum_{j}P(B|A_j)P(A_j)}.
+\]
+
+\vspace{0.5cm}
+
+\textbf{Ejemplo} Un mensaje de correo electr\'onico puede viajar a trav\'es de una de las tres rutas de un  servidor. La probabilidad de transmisi\'on de error en cada uno de los servidores y la proporci\'on de mensajes que viajan en  cada ruta se muestran en la siguiente tabla. Suponga que los servidores son independientes.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+           & \% mensajes & \% errores \\ \hline
+Servidor 1 & 40          & 1          \\ \hline
+Servidor 2 & 25          & 2          \\ \hline
+Servidor 3 & 35          & 1.5        \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+Determina el porcentaje de mensajes que contienen error
+
+
+<<foo8K, comment = NA, prompt =TRUE, eval= TRUE>>=
+# De la probabilidad total 
+0.4 * 0.01 + 0.25*0.02 + 0.35*0.15
+@
+
+
+\vspace{0.3cm}
+
+\textbf{Ejemplo} Un experimentador tienes dos urnas A y B a su disposici\'on. La urna A (B) tiene ocho (diez) canicas verdes y doce(ocho) canicas azules, todas del mismo tama\~no y peso. El experimentador selecciona una urna con igual probabilidad y escoge una canica al azar. Se anuncia  que la canica seleccionada es azul. Encontremos la probabilidad de que esta canica provenga de la urna B.
+
+\vspace{0.3cm}
+
+Definamos los eventos
+
+\vspace{0.2cm}
+
+$A_i$: La urna $i $ es seleccionada, $i = 1,2$.
+
+$B$ : La canica escogida desde la urna seleccionada es azul.
+
+Entonces $P(A_i) = \frac{1}{2}$ para $i = 1, 2$, mientras que $P(B|A_1) = \frac{12}{20}$ y $P(B|A_2) = \frac{8}{18}$. Ahora apliquemos el Teorema de Bayes,
+
+\[
+P(A_2|B) = P(A_2)P(B|A_2) /\{ P(A_1)P(B|A_1) + P(A_2)P(B|A_2) \} 
+\]
+
+
+Reemplazando en R
+
+<<foo8v, comment = NA, prompt =TRUE, eval= TRUE>>=
+(1/2)*(8/18)/((1/2)*(12/20) + (1/2)*(8/18))
+@
+\vspace{0.8cm}
+
+{\large Muestreo Aleatorio}
+
+
+
+\vspace{0.3cm}
+
+Uno de los conceptos en Probabilidades, es de  \textit{muestra aleatoria}, que se presenta en diversos aspectos, como la extracci\'on de una carta desde una baraja. En R se puede simular esas situaciones con la funci\'on \texttt{sample}. Por ejemplo si tu quieres obtener $5$ n\'umeros de manera aleatoria, de un conjunto \texttt{1:40}, entonces podemos escribir
+
+
+<<foo9, comment = NA, prompt =TRUE, eval= TRUE>>=
+sample(1:40, 5)
+@
+
+\vspace{0.2cm}
+
+Debes notar que el comportamiento predeterminado de \texttt{sample} es el \textit{muestreo sin reemplazo}. Es decir, las muestras no contienen el mismo n\'umero dos veces, y el tama\~no, obviamente, no puede ser m\'as grande que la longitud del vector a muestrear. Si deseas que el muestreo sea con reemplazo, entonces necesitas para agregar el argumento \texttt{replace = TRUE}.
+
+\vspace{0.3cm}
+
+El muestreo con reemplazo es adecuado para el modelado de lanzamientos de monedas o lanzamientos de un dado. As\'i, por ejemplo, para simular 12 veces el  lanzamiento de una  moneda podr\'iamos escribir
+
+
+<<foo10, comment = NA, prompt =TRUE, eval= TRUE>>=
+sample(c("H","T"), 12, replace=T)
+@
+
+\vspace{0.3cm}
+
+En el lanzamientos de monedas, la probabilidad de caras debe ser igual a la probabilidad de sellos, pero la idea de un evento al azar no se limita a los casos sim\'etricos. Se podr\'ia igualmente aplicarse a otros casos, como el resultado exitoso de un procedimiento quir\'urgico. Podemos  simular datos con probabilidades no iguales para los resultados (por ejemplo, un $90\%$ de probabilidades de \'exito) utilizando el argumento \texttt{prob} a \texttt{sample}
+
+<<foo11, comment = NA, prompt =TRUE, eval= TRUE>>=
+sample(c("exito", "fallo"), 10, replace=T, prob=c(0.9, 0.1))
+@
+
+\vspace{0.3cm}
+
+\textbf{Ejemplo} Simular el lanzamiento de una moneda puede ser hecho usando la funci\'on \textit{rbinom} en lugar de \textit{sample}. En efecto
+
+<<foo12, comment = NA, prompt =TRUE, eval= TRUE>>=
+rbinom(10, 1, .5)
+@
+
+o de la siguiente manera
+
+
+<<foo13, comment = NA, prompt =TRUE, eval= TRUE>>=
+ifelse(rbinom(10, 1, .5) == 1, "H", "T")
+@
+
+<<foo14, comment = NA, prompt =TRUE, eval= TRUE>>=
+c("H", "T")[1 + rbinom(10, 1, .5)]
+@
+
+ \end{document}
