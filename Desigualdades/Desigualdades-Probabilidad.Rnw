@@ -34,11 +34,15 @@ options(formatR.arrow=TRUE,width=90)
 \date{}
 \maketitle
 
-\vspace{0.3cm}
+\textbf{Lecturas} 
 
+\texttt{Probability Inequalities}- Lin, Zhengyan, Bai, Zhidong 2011.  Springer.
+
+\texttt{Divergencia de Kullback-Leibler} \url{https://es.wikipedia.org/wiki/Divergencia_de_Kullback-Leibler}.
+
+\texttt{Informaci\'on en R acerca de la distancia de Kullback-Leibler} \url{http://www.inside-r.org/packages/cran/FNN/docs/KL.divergence}
 
 \setlength{\unitlength}{1in}
-
 \begin{picture}(6,.1) 
 \put(0,0) {\line(1,0){6.25}}         
 \end{picture}
@@ -46,8 +50,9 @@ options(formatR.arrow=TRUE,width=90)
 
 \vspace{0.5cm}
 
-Las desigualdades en Probabilidad, es un cap\'itulo de la Teor\'ia de las Probabilidades muy importante lleno de aplicaciones.  Por ejemplo
-la \textit{desigualdad de Hoeffding} puede aplicarse al caso especial de variables de Bernouilli id\'enticamente distribuidas, y esta es la manera en que la desigualdad se aplica frecuentemente en combinatoria y en inform\'atica, la desigualdad de Chebyshev, ofrece una cota inferior a la probabilidad de que el valor de una variable aleatoria est\'e a cierta distancia de sus esperanza, bajo ciertas condiciones, etc.
+Las desigualdades en Probabilidad, es un cap\'itulo de la Teor\'ia de las Probabilidades muy importante, lleno de aplicaciones te\'oricas y pr\'acticas.  
+
+Por ejemplo la \textit{desigualdad de Hoeffding} puede aplicarse al caso especial de variables de Bernoulli id\'enticamente distribuidas, y esta es la manera en que se  aplica frecuentemente en combinatoria y en inform\'atica, la desigualdad de Chebyshev, ofrece una cota inferior a la probabilidad de que el valor de una variable aleatoria est\'e a cierta distancia de sus esperanza, bajo ciertas condiciones, etc.
 
 \vspace{0.2cm}
 
@@ -78,17 +83,27 @@ Para alg\'un $t > 0$.
 
 \vspace{0.3cm}
 
-\textbf{Desigualdad de Chebyshev} Sea $\mu = \mathbb{E}(X)$ y $\sigma^2 = Var(X)$. Entonces
+\textbf{Desigualdad de Chebyshev} Sea $\mu = \mathbb{E}(X)$ y $\sigma^2 = V(X)$. Entonces
 \[
 \mathbb{P}(\vert X- \mu \vert \geq t) \leq \frac{\sigma^2}{t^2}\qquad y \qquad \mathbb{P}(\vert Z \vert \geq k) \leq \frac{1}{k^2}.
 \]
 donde $Z = (X - \mu)/\sigma$. En particular $\mathbb{P}(\vert Z \vert > 2) \leq 1/4$ \qquad y \qquad  $\mathbb{P}(\vert Z \vert > 3) \leq 1/9$.
 
+\vspace{0.5cm}
+
+\textbf{\large{Desigualdad de Hoeffding}}
+
 \vspace{0.3cm}
 
-\textbf{Desigualdad de Hoeffding}
+Para hacer una demostraci\'on de este resultado se debe recordar que se dice que una funci\'on $g$ es convexa, si para cada $x, y$ para cada $\alpha \in [0,1]$.
 
-\vspace{0.5cm}
+\[
+g(\alpha x + (1 -\alpha)y) \leq \alpha g(x) + (1 -\alpha)g(y).
+\]
+
+
+\vspace{0.3cm}
+
 
 \textbf{Propiedad} Supongamos que $\mathbb{E}(X) = 0$ y que $a \leq x \leq b$. Entonces
 
@@ -106,6 +121,10 @@ donde $Z = (X - \mu)/\sigma$. En particular $\mathbb{P}(\vert Z \vert > 2) \leq 
 
 \vspace{0.3cm}
 
+\textbf{Desigualdad de Hoeffding}
+
+\vspace{0.3cm}
+
 Sean $Y_1, Y_2, \dots, Y_n$ observaciones indepedientes, tal que $\mathbb{E}(Y_i)=0 $ y $a_i \leq Y_i \leq b_i$. Sea $\epsilon > 0$. Entonces, para alg\'un $ t > 0$
 
 \[
@@ -119,6 +138,28 @@ Sean $Y_1, Y_2, \dots, Y_n$ observaciones indepedientes, tal que $\mathbb{E}(Y_i
 La desigualdad de Hoeffding proporciona una cota superior a la probabilidad de que la suma de variables aleatorias se desv\'ie una cierta cantidad de su valor esperado.
 
 \vspace{0.3cm}
+
+\textbf{Corolario} Si $X_1, X_2, \cdots, X_n$ son independientes con $\mathbb{P}(a \leq X_i \leq b) = 1$   y una media com\'un $\mu$, entonces con probabilidad de al menos
+$1 -\delta$
+
+\[
+|\overline{X_n} - \mu | \leq \sqrt{\dfrac{(b -a)^2}{2n}\log\Bigl(\dfrac{2}{\delta}\Bigr)}.
+\]
+
+
+\vspace{0.3cm}
+
+\textbf{Ejemplo} Sea $X_1, X_2, \dots, X_n \sim \mbox{Bernoulli}(p)$. Desde la desigualdad Hoeffding se tiene
+
+\[
+\mathbb{P}(|\overline{X_n} -p | > \epsilon) \leq 2\epsilon^{-2n\epsilon^2}.
+\]
+
+
+\vspace{0.5cm}
+
+
+
 \textbf{Teorema de McDiarmid} Sea $X_1, X_2, \dots X_n$ variables aleatorias independientes. Suponganse que
 \[
 \sup_{x_1,\dots, x_n, x^{'}_{i}}\Bigl\vert g(x_1,\dots, x_{i - 1}, x_i, x_{i + 1}, \dots, x_n ) - g(x_1,\dots, x_{i - 1}, x^{'}_i, x_{i + 1}, \dots, x_n )\Bigr\vert \leq c_i
@@ -134,6 +175,41 @@ para $i = 1,\dots, n$. Entonces
 
 \vspace{0.3cm}
 
+
+\textbf{Ejemplo} Supongamos que lanzamos $m$ pelotas en $n$ recipientes. ?` Qu\'e fracci\'on de los recipientes est\'an vacios?.
+
+Sea $M$ el n\'umero de recipientes vacios y sea $F = M/n$ la fracci\'on de recipientes vacios. Podemos escribir $Z = \sum_{i =1}^{n}Z_i$, donde $Z_i = 1$ de un recipiente $i$ est\'a vac\'io y $Z_i = 0$ en otro caso. Entonces
+
+\[
+\mu = \mathbb{E}(Z) = \sum_{i =1}^{n}\mathbb{E}(Z_i) = n(1 -1/n)^m = ne^{m\log(1 -1/n)} \approx ne^{-m/n}.
+\]
+
+
+y  $\theta =\mathbb{E}(F) = \mu/n \approx e^{-m/n}$. ?` Cu\'an cerca est\'a Z de $\mu$?.
+
+\vspace{0.3cm}
+
+
+Para ello definamos las variables $X_1, \dots, X_m$ donde $X_s = i$ si la pelota $s$ cae en el recipiente $i$. Entonces $Z = g(X_1,\dots, X_m)$. Si movemos una pelota a un recipiente diferente, entonces $Z$ puede cambiar a lo m\'as $1$. As\'i del Teorema de McDiarmind con $c_i = 1$ muestra que
+
+\[
+\mathbb{P}(|Z - \mu| > t) \leq 2e^{-2t^2/m}.
+\]
+
+\vspace{0.3cm}
+
+Como las fracci\'on de recipientes vacios es $F=Z/m$ con media $\theta = \mu/n$. Tenemos
+
+\vspace{0.3cm}
+
+\[
+\mathbb{P}(|F - \theta| > t) = \mathbb{P}(|Z - \mu| > nt) \leq 2e^{-2n^2t^2/m}.
+\]
+
+\newpage
+
+
+
 \textbf{Desigualdad de Cauchy -Schwartz} Si $X$ y $Y$ tienen varianza finita, entonces
 
 \[
@@ -141,6 +217,13 @@ para $i = 1,\dots, n$. Entonces
 \]
 
 \vspace{0.3cm}
+
+
+La desigualdad de Cauchy-Schwarz puede ser escrita como
+
+\[
+\mbox{Cov}^2(X,Y) \leq \delta_{X}^{2}\delta_{Y}^{2}.
+\]
 
 \textbf{Desigualdad de Jensen} Si $g$ es convexa, entonces
 \[
@@ -154,5 +237,104 @@ Si $g$ es c\'oncava
 \]
 
 
+\vspace{0.5cm}
+
+\textbf{\large{Ejemplo}}
+
+\vspace{0.3cm}
+
+\textbf{Distancia de Kullback-Leibler} 
+
+\vspace{0.2cm}
+
+Definamos la distancia de \textbf{Kullback-Leibler} entre dos densidades $f_1$ y $f_2$ dada
+\[
+D(f_1, f_2) = \int{f_1(x)\log\Bigl(\frac{f_1(x)}{f_2(x)}\Bigr)dx}
+\]
+
+
+Nota que $D(f_1,f_1) = 0$ y usando la desigualdad de Jensen se cumple que  $D(f_1, f_2) \geq 0$. La distancia de Kullbacker-Leibler es una medida de la informaci\'on que se pierde cuando $f_1$ se aproxima a $f_2$. Un ejemplo en R.
+
+<<fooq, comment = NA, prompt =TRUE, eval= FALSE>>=
+set.seed(1000)
+X<- rexp(10000, rate=0.2)
+Y<- rexp(10000, rate=0.4)
+KL.dist(X, Y, k=5)
+KLx.dist(X, Y, k=5)
+#Distancia teorica = (0.2-0.4)^2/(0.2*0.4) = 0.5.
+@
+
+El anterior sript usa el paquete \textbf{FNN } \textit{Fast Nearest Neighbor Search Algorithms and Applications} de $R$. 
+
+
+\vspace{0.3cm}
+
+
+La distancia de Kullbacker-Leibler entre una distribuci\'on Gaussiana $p$ con media $\mu_1$ y varianza $\sigma^2_1$ y una distribuci\'on Gaussiana $q$ con media $\mu_2$ y varianza $\sigma^2_2$ es dado por
+
+\[
+D(p,q) = \log \frac{\sigma_2}{\sigma_1} + \frac{\sigma^2_1 + (\mu_1 - \mu_2)^2}{2\sigma^2_2} - \frac{1}{2}.
+\]
+
+
+\vspace{0.3cm}
+
+
+\textbf{Teorema} Supongamos que $X_n \geq 0$ y para cada $\epsilon >0$,
+
+\[
+\mathbb{P}(X_n > \epsilon) \leq c_1e^{-c_2n\epsilon^2}
+\]
+
+para alg\'un $c_2 >0$ y $c_1 > 1/e$. Entonces
+
+\[
+\mathbb{E}(X_n) \leq \sqrt{\dfrac{C}{n}}.
+\]
+
+donde $C = (1 + \log(c_1))/c_2$
+
+\vspace{0.3cm}
+
+\textbf{Teorema} Sean $X_1,\dots, X_n$ variables aleatorias. Supongamos que existe un $\delta >0$ tal que $\mathbb{E}(e^{tX_i}) \leq e^{t^2\delta^2/2}$ para todo $t > 0$. Entonces 
+
+
+\[
+\mathbb{E}\Bigl( \max_{1 \leq i \leq n}X_i \Bigr) \leq \delta \sqrt{2 \log n}.
+\]
+
+
+\vspace{0.3cm}
+
+En Estad\'istica, Probabilidades y Machine Learning, usamos la notaci\'on $o_{P}$ y $O_{P}$. Por ejemplo, $a_n = o(1)$ significa que $a_n \rightarrow 0$ cuando $n \rightarrow \infty$. $a_n = o(b_n)$ significa $a_n/b_n = o(1)$.
+
+\vspace{0.2cm}
+
+$a_n = O(1)$ (eventualmente acotados) significa que para un $n$ una cantidad muy grande, $\vert a_n \vert \leq C$ para alg\'un $C >0$. $a_n = O(b_n)$, significa que $a_n/b_n = O(1)$.
+
+\vspace{0.2cm}
+
+Escribimos $a_n \sim b_n$ si ambos $a/b$ y  $b/a$ son eventualmente acotados ($a_n = \Theta(b_n)$). Veamos estas cosas en el terreno de las probabilidades, es decir $Y_n = o_P(1)$ significa que para cada $\epsilon > 0$,
+
+\[
+\mathbb{P}(\vert Y_n \vert > \epsilon ) \rightarrow 0.
+\]
+Decimos que $Y_n = o_P(a_n)$ si, $Y_n/a_n = o_{P}(1)$. 
+
+\vspace{0.3cm}
+
+Si tenemos $Y_n = O_P(1)$ si, para cada $\epsilon > 0$, existe un $C > 0$ tal que
+
+\[
+\mathbb{P}(\vert Y_n \vert > C) \leq \epsilon.
+\]
+\vspace{0.3cm}
+
+Se dice que $Y_n = O_P(a_n)$ si $Y_n/a_n = O_p(1)$. Sean $Y_1, Y_2, \dots, Y_n$ lanzamientos de monedas, esto es $Y_i \in \{0,1 \}$. Sea $p = \mathbb{P}(Y_i = 1)$. Sea 
+
+\[
+\hat{p_n} = \frac{1}{n}\sum_{i = 1}^{n}Y_i
+\]
+Se prueba que: $\hat{p_n} - p = o_P(1)$ y   $\hat{p_n} - p = O_P(1/\sqrt{n})$.
 \end{document}
 
