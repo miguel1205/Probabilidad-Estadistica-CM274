@@ -1,0 +1,293 @@
+\documentclass{article}
+\usepackage[sc]{mathpazo}
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\usepackage{url}
+\usepackage{graphicx}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\PR}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+\hypersetup{
+ pdfstartview={XYZ null null 1}}
+\begin{document}
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+#library(ggplot2)
+library(grid)
+# set global chunk options
+opts_chunk$set(fig.path='figure/minimal-', fig.align='center', fig.show='hold')
+options(formatR.arrow=TRUE,width=90)
+@
+
+
+\title{Ejercicios de Probabilidades y Estad\'istica}
+
+
+\author{Curso: Introducci\'on a la Estad\'istica y Probabilidades CM-274}
+
+\date{}
+\maketitle
+
+
+{\normalsize  \textbf{Temas:}  Variables Aleatorias Bivariadas, Esperanza, Esperanza condicional y distribuciones \mbox{condicionales},  \mbox{Desigualdades} en Probabilidades, Funci\'on generatriz de momentos, Convergencia de Variables Aleatorias.}
+
+\setlength{\unitlength}{1in}
+
+\begin{picture}(6,.1) 
+\put(0,0) {\line(1,0){6.25}}         
+\end{picture}
+
+\vspace{0.5cm}
+
+\textbf{Variables Aleatorias Bivariadas}
+
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item Muestra que dos variables aleatorias $X$ e $Y$ son independiendientes si  y s\'olo si
+\[
+\mathbb{P}(X > x, Y >y) = \mathbb{P}(X>x)\mathbb{P}(Y>y) \ \ \ \mbox{para}\ \ x,y \in \mathbb{R}.
+\]
+\item Sean $(X,Y)$ variables aleatorias con \texttt{Jdf} $F(x,y)$. Prueba que
+\[
+\PR(a < X \leq b, c < Y \leq d) = 	F(b,d) -F(a,d) - F(b,c) + F(a,c)
+\]
+para alg\'un $a,b,c, d \in \R$ siempre que $ a < b$ y $c < d$.
+
+\item Las variables aleatorias $X$ y $Y$ tienen \texttt{Jdf}
+
+\[
+f(x, y) = \begin{cases}
+e^{x -y} & \mbox{si} \ \ x, y >0 \\
+0 & \mbox{otros casos}
+\end{cases} 
+\]
+
+Encuentra $\PR(X +Y \leq 1)$ y $\PR(X> Y)$.
+\item Supongamos que $X$ e $Y$ tienen \texttt{Jdf}
+
+\[
+f(x,y) = \begin{cases}
+e^{-y} & \mbox{si}\ \ 0 < x < y < \infty\\
+0 & \mbox{en otros casos}
+\end{cases}
+\]
+Encuentra la funci\'on densidad condicional de $X$ dado que $Y = y$ y de $Y$ dado que $X =x$.
+\item Supongamos que $X$ e $Y$ tienen \texttt{Jdf}
+
+\[
+f(x,y) = \begin{cases}
+e^{-y} & \mbox{si}\ \ 0 < x < y < \infty\\
+0 & \mbox{en otros casos}
+\end{cases}
+\]
+
+Encuentra $\mathbb{E}(X|Y=y)$ y $\mathbb{E}(Y|X =x)$.
+ \end{enumerate}
+ 
+\vspace{0.5cm}
+
+\textbf{Esperanza}
+
+\begin{enumerate}
+\item Muestra que una variable aleatoria con funci\'on densidad
+\[
+f(x) = \begin{cases}
+\dfrac{1}{\pi\sqrt{x(1 -x)}} & 0 <x < 1 \\
+0 & \mbox{en otros casos}
+\end{cases}
+\]
+tiene media $1/2$.
+\item La variable aleatoria $X$ tiene una funci\'on densidad
+
+\[
+f(x) = cx(1-x) \ \ \mbox{para}\ \ 0 \leq x \leq 1.
+\]
+Determina $c$ y encuentra la media y la varianza de $X$.
+\item Muestra que $V(a + X) = V(X)$ para alguna variable $X$ y una constante $a$.
+\item ?` Es en general cierto que $\E(1/X) = 1 / \E(X)$?.
+
+\item Una poblaci\'on  de $b$ animales, tiene un n\'umero $a$ de miembros capturados, marcados y liberados. Sea $X$ el \mbox{n\'umero} de animales necesario recapturar de esta manera (sin ser re-lanzados), para obtener $m$ animales \mbox{marcados}. Muestra que
+
+\[
+\PR(X = n) = \frac{a}{b}\binom{a -1}{m -1}\binom{b -a}{n - m} /\binom{b -1}{ n - 1}.
+\]
+
+y encuentra el valor de $\E(X)$.
+
+\item Una moneda muestra cara con una probabilidad $p$. Sea $X_n$ el n\'umero de lanzamientos al aire requeridos para obtener $n$ caras consecutivas. Muestra que $\E(X_n) = \sum_{k = 1}^{n}p^{-k}$.
+\item Sean $X$ y $Y$ variables aleatorias con \texttt{Jmf} $f$. Prueba que
+\begin{enumerate}
+\item $\E(\log f_{X}(X)) \geq \E(\log f_{Y}(X))$
+\item $I \geq 0$ y que la igualdad se da cuando $X$ y $Y$ son independientes.
+\[
+I = \E\Biggl( \log \Biggl \{\frac{f(X,Y)}{f_{X}(X) f_{Y}(Y)}\Biggr\}\Biggr)
+\]
+\end{enumerate}
+\item Sean $X$ y $Y$ que tiene \texttt{Jmf}
+
+\[
+f(j,k) = \frac{c(j + k)a^{j + k}}{j!k!},\ \ j,k \geq 0,
+\]
+donde $a$ es una constante. Encuentra $c, \PR(X = j), \PR(X + Y = r)$ y $\E(X)$.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+
+\textbf{Esperanza condicional y distribuciones condicionales}
+
+
+\begin{enumerate}
+\item Muestra lo siguiente
+
+\begin{enumerate}
+\item $\E(aY +bZ|X) = a\E(Y|X) + b\E(Z|X)$ para $a,b \in \R$.
+\item $\E(Y|X) \geq 0$ si $Y \geq 0$.
+\item $\E(1|X) = 1$.
+\item Si $X$ y $Y$ son independientes entonces $\E(Y|X) = \E(Y)$.
+\item $\E(Yg(X)|X) = g(X)\E(Y|X)$ para alguna funci\'on $g$.
+\end{enumerate}
+\item Si $X$ e $Y$ son variables aleatorias y que $\phi(X)$ y $\rho (X)$ son dos funciones  de $X$ satisfaciendo
+
+\[
+\E(\phi(X)g(X)) = \E(\rho(X)g(X)) = \E(Yg(X))
+\]
+
+para alguna funci\'on $g$ para el cual la esperanza existe. Muestre que $\mathbb{P}(\phi(X) = \rho(X)) = 1$.
+\item ?` Como deberiamos definir \texttt{V(Y|X)}, la varianza condicional de Y dado X?. Muestra que $V(Y) = \E(V(Y|X)) + V(\E(Y|X))$.
+
+\item Sean $X$ e $Y$ variables independientes con media $\mu$. Explica el error de la  siguiente ecuaci\'on:
+
+\[
+\E(X|X + Y =z) = \E(X|X = z-Y) = \E(z -Y) = z - \mu.
+\]
+\item Cada ni\~no tiene la misma probabilidad de ser ni\~no o ni\~na, independientemente de los demás ni\~nos.
+\begin{enumerate}
+\item Demuestra  que, en una familia de tama\~no predeterminado, el n\'umero esperado de  ni\~nos es igual al n\'umero esperado de  ni\~nas. ?`Fue el supuesto de independencia necesario?.
+\item Un ni\~no seleccionado al azar es de sexo masculino; ?`que hace el n\'umero esperado de sus \mbox{hermanos} igual al n\'umero esperado de sus hermanas?. ?`Qu\'e sucede si no se requiere  \mbox{independencia}?.
+\end{enumerate}
+\item Una f\'abrica ha producido $n$ robots, cada uno de los cuales es defectuoso, con una probabilidad $\phi$.  Para cada robot se aplica una prueba que detecta el fallo (si est\'a presente) con una probabilidad $\delta$. Sea $X$ el n\'umero de robot defectuosos y sea $Y$ el n\'umero detectado como defectuoso. Asumiendo la usual independencia, muestra que
+
+\[
+\E(X|Y) = \{n\phi(1 -\delta) + (1 -\phi)Y \}/(1 -\phi\delta).
+\]
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\textbf{Desigualdades en Probabilidades}
+
+\begin{enumerate}
+\item Demuestra la desigualdad de Markov.
+
+\item Sea $X \sim \mbox{Poisson}(\lambda)$. Usa la desigualdad de Chebyshev muestra que
+$\mathbb{P}(X \geq 2 \lambda) \leq 1/\lambda$.
+
+\item \texttt{Desigualdad de Mill}. Sea $Z \sim N(0,1)$  Entonces,
+
+\[
+\mathbb{P}(|Z| > t) \leq \sqrt{\dfrac{2}{\pi}}\dfrac{e^{-t^2/2}}{t}.
+\]
+\item Sea $X \sim \mbox{Exponential}(\beta)$. Encuentra $\mathbb{P}(| X - \mu_X| \geq k\sigma_X)$ para $k >1$. Compara esto con la cota que se consigue de la desigualdad de Chebyshev.
+\item Sea $Z \sim N(0,1)$. Encuentra $\mathbb{P}(|Z| > t)$ y grafica como una  funci\'on de $t$. Desde la desigualdad de Markov, tenemos la cota  $\mathbb{P}(|Z| > t) \leq \dfrac{\mathbb{E}|Z|^k}{t^k}$ para un $k > 0$. Dibuja esas cotas para $k =1,2,3,4,5$. Tambi\'en dibuja las cotas desde la desigualdad de Mill.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\textbf{Funci\'on generatriz de momentos}
+
+\begin{enumerate}
+
+\item Si $X$ tiene una distribuci\'on normal, con media $0$ y varianza $1$, entonces $Y = e^X$, tiene una distribuci\'on \texttt{logaritmo-normal } con una funci\'on densidad
+
+\[
+f(x) = \begin{cases}
+\dfrac{1}{x\sqrt{2\pi}}\exp\Bigl[-\dfrac{1}{2}(\log x)^2\Bigr]& x >0 \\
+0  &  x \leq 0.
+\end{cases}
+\]
+
+Supongase que $-1 \leq a \leq 1$ y definamos
+
+\[
+f_{a}(x) = [1 + a\sin(2\pi\log x)]f(x). 
+\]
+
+Prueba que
+
+\begin{enumerate}
+\item $f_a$ es una funci\'on densidad.
+\item $f_a$ tiene momentos finitos de todos los \'ordenes.
+\item $f_a$ y $f$ tienen iguales momentos de todos los \'ordenes, esto es
+
+\[
+\int_{-\infty}^{\infty}x^kf(x)dx = \int_{-\infty}^{\infty}x^kf_a(x)dx, \ \ \mbox{para}\ \ k =1,2, \dots
+\]
+
+As\'i $\{f_a: -1 \leq a \leq 1\}$ es una colecci\'on de funciones con diferentes densidad que tienen el mismo momento.
+\end{enumerate}
+\item Si $X$ es uniformemente distribuida en $(a,b)$, muestra que
+
+\[
+\mathbb{E}(X^k) = \dfrac{b^{k +1} - a^{k+1}}{(b -a)(k +1)} \ \ k =1,2, \dots
+\]
+\item Muestra que \texttt{cov(X,Y) =1} en el caso de que X, Y tienen un \texttt{Jdf}
+
+\[
+f(x, y) =\begin{cases}
+\dfrac{1}{y}e^{- y -x/y} \ \ \mbox{si} \ x, y > 0\\
+0 \ \ \ \mbox{en otros casos}.
+\end{cases}
+\]
+
+\item Si $X$ tiene una distribuci\'on normal con media $\mu$ y varianza $\sigma^2$, encuentra $\mathbb{E}(X^3)$.
+\item Muestra por la desigualdad de Jensen que $\mathbb{E}(X^2) \geq \mathbb{E}(X)^2$.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\textbf{Convergencia de Variables Aleatorias}
+
+\begin{enumerate}
+\item Definamos $\langle X,Y\rangle = \mathbb{E}(XY)$ para variables aleatorias $X$ y $Y$ teniendo finita varianza y definamos $\Vert X \Vert = \sqrt{\langle X,Y \rangle}$. Muestra que :
+\begin{enumerate}
+\item $\langle aX +bY, Z \rangle$ = $a \langle X,Z\rangle$ + $b \langle Y,Z\rangle$.
+\item $\Vert X +Y \Vert^2 +  \Vert X- Y \Vert^2$ = $2 (\Vert X \Vert ^2+ \Vert Y\Vert^2)$.
+\item Si $\langle X_i, X_j\rangle$ para todo $ i \neq j$, entonces
+
+\[
+\Bigl\Vert \sum_{i =1}^{n}X_i \Bigr\Vert^2 = \sum_{i =1}^{n}\Vert X_i \Vert^2.
+\]
+\end{enumerate}
+
+
+
+\item Encuentra variables aleatorias $X, X_1, X_2, \dots$ tal que $\mathbb{E}(|X_n -x|)\rightarrow 0$ cuando $n \rightarrow \infty$, pero $\mathbb{E}|X_n| = \infty$.
+\item Sean $X_1, X_2, \dots$ variables aleatorias sobre el espacio de probabilidad $(\Omega, \mathcal{F}, \mathbb{P})$. Muestra que el \mbox{conjunto} $A = \{\omega \in \Omega: \mbox{la secuencia}  X_n(\omega)\ \ \mbox{converge} \}$ es un evento (esto es pertenece a $\mathcal{F}$) y que existe una variable aleatoria $X$, tal que $X_{n}(\omega) \rightarrow X(\omega)$ para $\omega \in A$.
+\item Sea $\vert X_n \vert \leq Z$ para todo $n$, donde $\mathbb{E}(Z) < \infty$. Prueba que si  $X_n \overset{P}{\to} X$ entonces converge en media, esto es $X_n \overset{1}{\to} X$.
+\item 
+\begin{enumerate}
+\item Sup\'ongase que $X_n \overset{D}{\to} X$ y $Y_n \overset{P}{\to} c$, donde $c$ es una constante. Muestra que $X_nY_n \overset{D}{\to} cX$ y que $X_n/Y_n \overset{D}{\to} X/c$, si $c\neq 0$. 
+\item Sup\'ongase que $X_n  \overset{D}{\to} 0$ y $Y_n \overset{P}{\to} Y$ y sea $g:\mathbb{R}^2 \rightarrow \mathbb{R}$ tal que $g(x,y)$ es una funci\'on continua de $y$ para todo $x$ y $g(x,y)$ es continua en $x =0$ para todo $y$. Muestra que y $g(X_n,Y_n) \overset{P}{\to} g(0,Y)$.
+
+\end{enumerate}
+\item Sea $X_1, X_2, \dots$ variables aleatorias id\'enticamente distribuidas independientes con media $\mu$ y varianza finita. Muestra que
+
+\[
+\binom{n}{2}^{-1}\sum_{1 \leq i \leq j \leq n}X_iX_j \overset{P}{\to}\mu^2, \ \ n \rightarrow \infty.
+\]
+\end{enumerate}
+
+\end{document}
